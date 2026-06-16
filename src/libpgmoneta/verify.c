@@ -375,10 +375,6 @@ pgmoneta_sha512_verification(char** argv)
          err = 1;
          goto server_cleanup;
       }
-      if (pgmoneta_deque_create(true, &labels))
-      {
-         goto server_cleanup;
-      }
       if (pgmoneta_storage_list_backup_labels(server, &labels))
       {
          goto server_cleanup;
