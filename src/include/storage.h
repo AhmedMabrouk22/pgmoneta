@@ -117,6 +117,15 @@ pgmoneta_sftp_wal_open(int server, char* filename, int segsize, sftp_file* file)
  */
 int
 pgmoneta_sftp_wal_close(int server, char* filename, bool partial, sftp_file* file);
+
+/**
+ * Check if a storage engine is enabled in the current configuration
+ * @param engine The storage engine flag (e.g. STORAGE_ENGINE_LOCAL, STORAGE_ENGINE_S3)
+ * @return true if enabled, otherwise false
+ */
+bool
+pgmoneta_is_storage_engine_enabled(int engine);
+
 #ifdef __cplusplus
 }
 #endif

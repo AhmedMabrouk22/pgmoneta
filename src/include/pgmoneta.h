@@ -141,6 +141,7 @@ extern "C" {
 #define COMPRESSION_IS_CLIENT(t)     (!!((t) & COMPRESSION_TYPE_CLIENT))
 #define COMPRESSION_ALGORITHM(t)     ((t) & 0x0F)
 
+#define STORAGE_ENGINE_NONE          0
 #define STORAGE_ENGINE_LOCAL         1 << 0
 #define STORAGE_ENGINE_SSH           1 << 1
 #define STORAGE_ENGINE_S3            1 << 2

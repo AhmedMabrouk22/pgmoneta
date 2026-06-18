@@ -39,6 +39,7 @@
 #include <manifest.h>
 #include <progress.h>
 #include <security.h>
+#include <storage.h>
 #include <utils.h>
 #include <value.h>
 #include <vfile.h>
@@ -549,11 +550,16 @@ s3_storage_teardown(char* name __attribute__((unused)), struct art* nodes)
 
    pgmoneta_log_debug("S3 storage engine (teardown): %s/%s", config->common.servers[server].name, label);
 
-   root = pgmoneta_get_server_backup_identifier_data(server, label);
+   if (!pgmoneta_is_storage_engine_enabled(STORAGE_ENGINE_LOCAL))
+   {
+      root = pgmoneta_get_server_backup_identifier_data(server, label);
 
-   pgmoneta_delete_directory(root);
-
-   free(root);
+      if (root != NULL)
+      {
+         pgmoneta_delete_directory(root);
+         free(root);
+      }
+   }
 
    return 0;
 }

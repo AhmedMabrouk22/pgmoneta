@@ -31,6 +31,7 @@
 #include <http.h>
 #include <logging.h>
 #include <security.h>
+#include <storage.h>
 #include <utils.h>
 #include <workflow.h>
 
@@ -194,13 +195,18 @@ azure_storage_teardown(char* name __attribute__((unused)), struct art* nodes)
    server = (int)pgmoneta_art_search(nodes, NODE_SERVER_ID);
    label = (char*)pgmoneta_art_search(nodes, NODE_LABEL);
 
-   root = pgmoneta_get_server_backup_identifier_data(server, label);
+   if (!pgmoneta_is_storage_engine_enabled(STORAGE_ENGINE_LOCAL))
+   {
+      root = pgmoneta_get_server_backup_identifier_data(server, label);
 
-   pgmoneta_delete_directory(root);
+      if (root != NULL)
+      {
+         pgmoneta_delete_directory(root);
+         free(root);
+      }
+   }
 
    pgmoneta_log_debug("Azure storage engine (teardown): %s/%s", config->common.servers[server].name, label);
-
-   free(root);
 
    return 0;
 }

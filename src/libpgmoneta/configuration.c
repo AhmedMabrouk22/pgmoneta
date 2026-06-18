@@ -5463,7 +5463,7 @@ error:
 static int
 as_storage_engine(char* str)
 {
-   int STORAGE_ENGINE_TYPES = STORAGE_ENGINE_LOCAL;
+   int STORAGE_ENGINE_TYPES = STORAGE_ENGINE_NONE;
    char* token = NULL;
    char* delimiter = ",";
    int i = 0, j = 0;
